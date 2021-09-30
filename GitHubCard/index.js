@@ -4,16 +4,19 @@
     https://api.github.com/users/<your name>
 */
 // console.log('in index.js');
+
+const entryPoint = document.querySelector('.cards')
+
 import axios from 'axios';
-  axios.get(`https://api.github.com/users/DaveMadden`)
-    .then(resp => {
-      // console.log(resp.data)
-      console.log(makeCard(resp.data));
-      
-    })
-    .catch(err => {
-      console.error(err);
-    })
+axios.get(`https://api.github.com/users/DaveMadden`)
+  .then(resp => {
+    // console.log(resp.data)
+    // console.log(makeCard(resp.data));
+    entryPoint.appendChild(makeCard(resp.data));
+  })
+  .catch(err => {
+    console.error(err);
+  })
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -38,7 +41,26 @@ import axios from 'axios';
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = [
+  'tetondan',
+  'dustinmyers',
+  'justsml',
+  'luishrd',
+  'bigknell'];
+
+// console.log(followersArray);
+
+followersArray.forEach((element) => {
+  axios.get(`https://api.github.com/users/${element}`)
+  .then(resp => {
+    // console.log(resp.data)
+    // console.log(makeCard(resp.data));
+    entryPoint.appendChild(makeCard(resp.data));
+  })
+  .catch(err => {
+    console.error(err);
+  })
+})
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -87,7 +109,7 @@ function makeCard(obj){
   cardInfo.appendChild(pBio);
   
   img.src = obj.avatar_url;
-  h3.textContext = obj.name;
+  h3.textContent = obj.name;
   pUser.textContent = obj.login;
   pLoc.textContent = "Location: " + obj.location;
   pProfile.textContent = "Profile: " + obj.url;
@@ -96,7 +118,6 @@ function makeCard(obj){
   pBio.textContent = "Bio: " + obj.bio;
 
   return card;
-
 }
 /*
   List of LS Instructors Github username's:
