@@ -3,7 +3,17 @@
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
-
+// console.log('in index.js');
+import axios from 'axios';
+  axios.get(`https://api.github.com/users/DaveMadden`)
+    .then(resp => {
+      // console.log(resp.data)
+      console.log(makeCard(resp.data));
+      
+    })
+    .catch(err => {
+      console.error(err);
+    })
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -49,7 +59,45 @@ const followersArray = [];
       </div>
     </div>
 */
+function makeCard(obj){
+  const card = document.createElement('div');
+  const img = document.createElement('img');
+  const cardInfo = document.createElement('div');
+  const h3 = document.createElement('h3');
+  const pUser = document.createElement('p');
+  const pLoc = document.createElement('p');
+  const pProfile = document.createElement('p');
+  const pFollowers = document.createElement('p');
+  const pFollowing = document.createElement('p');
+  const pBio = document.createElement('p');
 
+  card.classList.add('card');
+  cardInfo.classList.add('card-info');
+  h3.classList.add('name');
+  pUser.classList.add('username');
+
+  card.appendChild(img);
+  card.appendChild(cardInfo);
+  cardInfo.appendChild(h3);
+  cardInfo.appendChild(pUser);
+  cardInfo.appendChild(pLoc);
+  cardInfo.appendChild(pProfile);
+  cardInfo.appendChild(pFollowers);
+  cardInfo.appendChild(pFollowing);
+  cardInfo.appendChild(pBio);
+  
+  img.src = obj.avatar_url;
+  h3.textContext = obj.name;
+  pUser.textContent = obj.login;
+  pLoc.textContent = "Location: " + obj.location;
+  pProfile.textContent = "Profile: " + obj.url;
+  pFollowers.textContent = "Followers: " + obj.followers;
+  pFollowing.textContent = "Following: " + obj.following;
+  pBio.textContent = "Bio: " + obj.bio;
+
+  return card;
+
+}
 /*
   List of LS Instructors Github username's:
     tetondan
