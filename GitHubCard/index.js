@@ -88,7 +88,7 @@ function makeCard(obj){
   const h3 = document.createElement('h3');
   const pUser = document.createElement('p');
   const pLoc = document.createElement('p');
-  const pProfile = document.createElement('p');
+  const pProfile = document.createElement('a');
   const pFollowers = document.createElement('p');
   const pFollowing = document.createElement('p');
   const pBio = document.createElement('p');
@@ -112,7 +112,8 @@ function makeCard(obj){
   h3.textContent = obj.name;
   pUser.textContent = obj.login;
   pLoc.textContent = "Location: " + obj.location;
-  pProfile.textContent = "Profile: " + obj.url;
+  pProfile.setAttribute('href', obj.html_url);
+  pProfile.textContent = "Profile: " + obj.html_url;
   pFollowers.textContent = "Followers: " + obj.followers;
   pFollowing.textContent = "Following: " + obj.following;
   pBio.textContent = "Bio: " + obj.bio;
